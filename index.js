@@ -1,6 +1,6 @@
 var request = require('request');
 // var config = require('./config');
-
+var fs = require("fs");
 
 
 
@@ -23,9 +23,6 @@ request.get(options, callback)
 
 }
 
-
-
-
 // calling my function getRepoContributors
 getRepoContributors("jquery", "jquery", function (error, response, body) {
     if (!error && response.statusCode == 200) {
@@ -39,3 +36,16 @@ getRepoContributors("jquery", "jquery", function (error, response, body) {
       console.log(response);
     }
   })
+
+  request.get('https://avatars2.githubusercontent.com/u/2741?v=3&s=466", "avatars/kvirani.jpg')
+         // .on('error') handles any errors
+         .on('error', function (err) {                                   // Note 2
+           throw err;
+         })
+         .pipe(fs.createWriteStream('./kvirani.jpg'));
+  //function that will make a request to a given url, saving the resulting
+  // image file to a specified filePath.
+
+  // function downloadImageByURL(url, filePath) {
+  //   // ...
+  // }
