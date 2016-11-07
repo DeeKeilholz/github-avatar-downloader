@@ -1,5 +1,5 @@
 var request = require('request');
-// var token = require('./token');
+// var config = require('./config');
 
 
 
@@ -27,7 +27,15 @@ request.get(options, callback)
 
 
 // calling my function getRepoContributors
-getRepoContributors("jquery", "jquery", function (err, result) {
-  console.log("Errors:", err);
-   console.log("Result:", result);
- });
+getRepoContributors("jquery", "jquery", function (error, response, body) {
+    if (!error && response.statusCode == 200) {
+
+      var data = JSON.parse(body)
+      console.log(data);
+    } else {
+      // didn't get an http response
+      console.log(error);
+      // got an https response, but not status == 200
+      console.log(response);
+    }
+  })
