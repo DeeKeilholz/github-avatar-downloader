@@ -31,29 +31,22 @@ getRepoContributors("jquery", "jquery", function (error, response, body) {
     if (!error && response.statusCode == 200) {
       var data = JSON.parse(body)
       data.forEach (function (elm, index, array) {
-      urlList.push(elm["avatar_url"])
-
+        urlList.push(elm["avatar_url"])
       })
   }
-  console.log(urlList);
+  downloadImageByURL(urlList);
+
 })
 
 
 
 
-
-  request.get('https://avatars.githubusercontent.com/u/1615?v=3", "avatars/jeresig.jpg')
-         // .on('error') handles any errors
-         .on('error', function (err) {                                   // Note 2
-           throw err;
-         })
-         .pipe(fs.createWriteStream('./jeresig.jpg'));
-
-  //function that will make a request to a given url, saving the resulting
+  // function that will make a request to a given url, saving the resulting
   // image file to a specified filePath.
-  //
-  function downloadImageByURL(url, filePath) {
 
-    // now I have my var urlList = [] to work with
-  //   request.get// forEach.data[avatar_url] // return image;
+  function downloadImageByURL(urlList) {
+    fs.mkdirSync('avatars')
+    urlList.forEach (function (elm, index, array) {
+      request.get(elm).pipe(fs.createWriteStream(`avatars/${index}.jpg`));
+    })
   }
