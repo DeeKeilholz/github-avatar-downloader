@@ -27,7 +27,8 @@ request.get(options, callback)
 var urlList = []
 
 // calling my function getRepoContributors
-getRepoContributors("jquery", "jquery", function (error, response, body) {
+
+getRepoContributors(process.argv[2], process.argv[3], function (error, response, body) {
     if (!error && response.statusCode == 200) {
       var data = JSON.parse(body)
       data.forEach (function (elm, index, array) {
@@ -40,7 +41,6 @@ getRepoContributors("jquery", "jquery", function (error, response, body) {
 
 
 
-
   // function that will make a request to a given url, saving the resulting
   // image file to a specified filePath.
 
@@ -49,4 +49,9 @@ getRepoContributors("jquery", "jquery", function (error, response, body) {
     urlList.forEach (function (elm, index, array) {
       request.get(elm).pipe(fs.createWriteStream(`avatars/${index}.jpg`));
     })
+    if (process.argv.length !== 4) {
+
+      let badArgs = "Please provide the name of the repo owner and the name of the rep e.g. \"jquery\" \"jquery\"";
+      throw badArgs;
   }
+}
