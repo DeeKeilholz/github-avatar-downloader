@@ -11,7 +11,7 @@ var GITHUB_TOKEN = "30300c552481a5a440ab1bd09a308617d45741e9";
 
 function getRepoContributors(repoOwner, repoName, callback) {
 var requestURL = 'https://'+ GITHUB_USER + ':' + GITHUB_TOKEN + '@api.github.com/repos/' + repoOwner + '/' + repoName + '/contributors';
-console.log(requestURL);
+
 
 var options = {
   url: requestURL,
@@ -44,14 +44,13 @@ getRepoContributors(process.argv[2], process.argv[3], function (error, response,
   // function that will make a request to a given url, saving the resulting
   // image file to a specified filePath.
 
-  function downloadImageByURL(urlList) {
-    fs.mkdirSync('avatars')
-    urlList.forEach (function (elm, index, array) {
-      request.get(elm).pipe(fs.createWriteStream(`avatars/${index}.jpg`));
+function downloadImageByURL(urlList) {
+  fs.mkdirSync('avatars')
+  urlList.forEach (function (elm, index, array) {
+    request.get(elm).pipe(fs.createWriteStream(`avatars/${index}.jpg`));
     })
     if (process.argv.length !== 4) {
-
-      let badArgs = "Please provide the name of the repo owner and the name of the rep e.g. \"jquery\" \"jquery\"";
+      var badArgs = "Please provide the name of the repo owner and the name of the rep e.g. \"jquery\" \"jquery\"";
       throw badArgs;
   }
 }
